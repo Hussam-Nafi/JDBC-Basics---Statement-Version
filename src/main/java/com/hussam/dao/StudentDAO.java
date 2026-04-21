@@ -43,21 +43,21 @@ public class StudentDAO {
     }
 
     // INSERT
-    public int insertStudent(int id, String name, String email, String phone, Date birthday, int firstMark, int secondMark, int finalMark) {
+    public int insertStudent(Student student) {
         String SQL = "INSERT INTO public.students VALUES(? , ? , ? , ? , ? , ? , ? , ?)";
         int rows = 0;
         try (
                 Connection connection = DBConnection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
-            preparedStatement.setInt(1,id);
-            preparedStatement.setString(2,name);
-            preparedStatement.setString(3,email);
-            preparedStatement.setString(4,phone);
-            preparedStatement.setDate(5,birthday);
-            preparedStatement.setInt(6,firstMark);
-            preparedStatement.setInt(7,secondMark);
-            preparedStatement.setInt(8,finalMark);
+            preparedStatement.setInt(1,student.getId());
+            preparedStatement.setString(2,student.getName());
+            preparedStatement.setString(3,student.getEmail());
+            preparedStatement.setString(4,student.getPhone());
+            preparedStatement.setDate(5,student.getBirthday());
+            preparedStatement.setInt(6,student.getFirstMark());
+            preparedStatement.setInt(7,student.getSecondMark());
+            preparedStatement.setInt(8,student.getFinalMark());
 
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -67,21 +67,21 @@ public class StudentDAO {
     }
 
     // UPDATE
-    public int updateStudent(int id, String name, String email, String phone, Date birthday, int firstMark, int secondMark, int finalMark) {
+    public int updateStudent(Student student) {
         String SQL = "UPDATE public.students SET student_name = ? ,student_email = ? ,student_phone = ? , student_birthday = ? ,student_first_mark = ? ,student_second_mark = ? ,student_final_mark = ? WHERE student_id_number = ?";
         int rows = 0;
         try (
                 Connection connection = DBConnection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SQL);
         ) {
-            preparedStatement.setString(1,name);
-            preparedStatement.setString(2,email);
-            preparedStatement.setString(3,phone);
-            preparedStatement.setDate(4,birthday);
-            preparedStatement.setInt(5,firstMark);
-            preparedStatement.setInt(6,secondMark);
-            preparedStatement.setInt(7,finalMark);
-            preparedStatement.setInt(8,id);
+            preparedStatement.setString(1,student.getName());
+            preparedStatement.setString(2,student.getEmail());
+            preparedStatement.setString(3,student.getPhone());
+            preparedStatement.setDate(4,student.getBirthday());
+            preparedStatement.setInt(5,student.getFirstMark());
+            preparedStatement.setInt(6,student.getSecondMark());
+            preparedStatement.setInt(7,student.getFinalMark());
+            preparedStatement.setInt(8,student.getId());
 
             rows = preparedStatement.executeUpdate();
         } catch (SQLException e) {
